@@ -1,0 +1,30 @@
+-- java_parking_application 
+
+-- login table
+CREATE TABLE login(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(20) UNIQUE,
+	password VARCHAR(20) NOT NULL
+);
+
+SELECT * FROM login WHERE username = ? AND password = ?;
+INSERT INTO login(username, password) values(?, ?);
+UPDATE login SET password = ? WHERE id = ? AND username = ?;
+
+-- car table
+CREATE TABLE car(
+	registration_number VARCHAR(8) PRIMARY KEY,
+	brand VARCHAR(20),
+	model VARCHAR(20)
+);
+
+-- parking table
+CREATE TABLE parking(
+	spot_number VARCHAR(8) PRIMARY KEY,
+	car_registration_number VARCHAR(8),
+	time_parked DATE,
+	time_exited DATE
+);
+
+ALTER TABLE car ADD FOREIGN KEY (registration_number) REFERENCES parking(car_registration_number)
+ON DELETE SET NULL;
